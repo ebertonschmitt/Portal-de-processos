@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Apresentação interativa dos processos de gestão de demandas de integração.">
+<title>Portal de Processos | Gestão de Demandas de Integração</title>
+<style>
+:root{--navy:#142b4a;--blue:#2866c7;--teal:#119a92;--ink:#1f2d3d;--muted:#637187;--line:#dce4ee;--bg:#f4f7fb;--white:#fff;--pale:#eaf1fb;--gold:#bd8721;--red:#c64b56;--shadow:0 12px 32px rgba(26,48,78,.08);--radius:18px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}button,input{font:inherit}button{cursor:pointer}.shell{max-width:1440px;margin:auto;padding:0 28px}.topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.toprow{min-height:78px;display:flex;align-items:center;gap:18px;justify-content:space-between}.brand{display:flex;gap:12px;align-items:center;min-width:240px}.brand-mark{width:44px;height:44px;border-radius:14px;background:linear-gradient(145deg,var(--navy),var(--blue));color:white;display:grid;place-items:center;font-weight:850;letter-spacing:-1px}.brand-title{font-size:14px;font-weight:800;color:var(--navy);letter-spacing:.02em}.brand-sub{font-size:12px;color:var(--muted)}.nav{display:flex;gap:5px;align-items:center;flex-wrap:wrap}.nav button{border:0;background:transparent;color:var(--muted);padding:10px 13px;border-radius:10px;font-weight:700;font-size:13px}.nav button.active,.nav button:hover{background:var(--pale);color:var(--blue)}.actions{display:flex;gap:8px;align-items:center}.btn{border:1px solid var(--line);background:#fff;color:var(--navy);font-weight:750;border-radius:11px;padding:10px 13px;font-size:12px;white-space:nowrap}.btn.primary{background:var(--blue);border-color:var(--blue);color:white}.btn:hover{filter:brightness(.97);transform:translateY(-1px)}main{padding:30px 0 60px}.hero{padding:34px 36px;border-radius:24px;background:radial-gradient(circle at 86% 10%,rgba(78,150,231,.3),transparent 30%),linear-gradient(120deg,#132a49,#204c82);color:white;position:relative;overflow:hidden;box-shadow:var(--shadow)}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.15em;font-weight:850;color:#82dcd6}.hero h1{font-size:clamp(28px,4vw,44px);line-height:1.08;letter-spacing:-.035em;margin:10px 0 12px;max-width:780px}.hero p{font-size:16px;max-width:720px;color:#d9e5f5;margin:0}.hero-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}.chip{display:inline-flex;align-items:center;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.09);border-radius:999px;padding:7px 11px;font-size:11px;font-weight:750;color:#fff}.section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin:32px 0 16px}.section-head h2{font-size:23px;letter-spacing:-.025em;color:var(--navy);margin:0}.section-head p{margin:5px 0 0;color:var(--muted);font-size:13px;max-width:700px}.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}.kpi{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 3px 14px rgba(27,48,75,.025)}.kpi .number{font-size:29px;font-weight:850;letter-spacing:-.04em;color:var(--navy)}.kpi .label{font-size:12px;font-weight:800;color:var(--muted)}.kpi .desc{font-size:11px;color:#8591a1;margin-top:6px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.proc-card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:19px;display:flex;flex-direction:column;align-items:flex-start;min-height:195px;box-shadow:0 5px 18px rgba(26,48,78,.03);transition:.18s;cursor:pointer}.proc-card:hover{border-color:#9eb8df;transform:translateY(-3px);box-shadow:var(--shadow)}.proc-card .num{font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:850;color:var(--blue)}.proc-card h3{font-size:18px;line-height:1.2;margin:11px 0 8px;color:var(--navy)}.proc-card p{font-size:12px;color:var(--muted);margin:0 0 16px}.proc-card .bottom{margin-top:auto;width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px}.tag{font-size:10px;padding:5px 8px;border-radius:99px;background:#edf5f4;color:#167e77;font-weight:850}.open-label{font-size:11px;color:var(--blue);font-weight:850}.panel{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:23px;box-shadow:0 5px 18px rgba(26,48,78,.03)}.two-col{display:grid;grid-template-columns:1.05fr .95fr;gap:16px;margin-top:18px}.focus-list{list-style:none;padding:0;margin:0;display:grid;gap:12px}.focus-list li{display:flex;gap:11px;font-size:13px}.dot{width:25px;height:25px;flex:0 0 25px;border-radius:8px;background:var(--pale);color:var(--blue);font-weight:850;display:grid;place-items:center;font-size:11px}.mini-flow{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap}.mini-flow .node{flex:1;min-width:105px;background:#f5f8fc;border:1px solid var(--line);padding:12px;border-radius:12px;font-size:11px;font-weight:800;text-align:center;color:var(--navy)}.mini-flow .arrow{align-self:center;color:#9aa8ba;font-weight:900}.view{display:none}.view.active{display:block}.process-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.process-tabs button{border:1px solid var(--line);background:white;border-radius:11px;padding:10px 12px;font-weight:750;font-size:12px;color:var(--muted)}.process-tabs button.active{background:var(--navy);border-color:var(--navy);color:white}.process-title{background:white;border:1px solid var(--line);border-radius:18px;padding:23px;display:flex;align-items:flex-start;justify-content:space-between;gap:18px}.process-title h2{margin:0 0 7px;color:var(--navy);font-size:26px;letter-spacing:-.03em}.process-title p{color:var(--muted);margin:0;max-width:800px;font-size:13px}.process-count{border-radius:13px;background:var(--pale);color:var(--blue);padding:12px 14px;text-align:center;min-width:90px}.process-count b{display:block;font-size:26px;line-height:1.05}.process-count span{font-size:10px;font-weight:850;text-transform:uppercase}.phase-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:15px}.phase{background:white;border:1px solid var(--line);border-radius:15px;overflow:hidden}.phase summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:12px;padding:16px}.phase summary::-webkit-details-marker{display:none}.phase-no{width:32px;height:32px;border-radius:10px;background:var(--navy);color:white;display:grid;place-items:center;font-size:12px;font-weight:850;flex-shrink:0}.phase-name{font-size:14px;font-weight:850;color:var(--navy);flex:1}.phase-range{font-size:10px;color:var(--muted);font-weight:800}.chevron{color:#8492a5;transition:.15s}.phase[open] .chevron{transform:rotate(180deg)}.phase-body{padding:0 16px 16px}.step{display:grid;grid-template-columns:29px 1fr;gap:10px;padding:10px 0;border-top:1px solid #eef2f7}.step-num{font-size:11px;font-weight:850;color:var(--blue);background:#edf3fd;border-radius:8px;min-width:28px;height:27px;display:grid;place-items:center}.step p{margin:3px 0 0;font-size:12px;line-height:1.45;color:#425166}.note{background:#fff9eb;border:1px solid #f0dfb7;border-radius:13px;padding:14px;margin-top:13px;font-size:12px;color:#6f571c}.note b{display:block;margin-bottom:4px}.compare-scroll{overflow:auto;border:1px solid var(--line);border-radius:15px;background:white}.compare-table{border-collapse:collapse;width:100%;min-width:860px;font-size:12px}.compare-table th{background:#f1f5fb;color:var(--navy);text-align:left;padding:14px;border-bottom:1px solid var(--line);font-size:11px}.compare-table td{padding:14px;border-bottom:1px solid #edf1f6;vertical-align:top;line-height:1.4}.compare-table tr:last-child td{border-bottom:0}.compare-table td:first-child{font-weight:850;color:var(--navy);min-width:190px}.range{display:inline-block;background:#edf3fd;color:#1f5bb4;font-size:10px;font-weight:850;border-radius:7px;padding:5px 7px;margin:2px 2px 2px 0;white-space:nowrap}.na{color:#9ca7b4}.block-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}.block-card{border:1px solid var(--line);border-radius:16px;background:white;padding:18px}.block-card h3{margin:0 0 6px;font-size:16px;color:var(--navy)}.block-card p{margin:0;color:var(--muted);font-size:12px}.block-card .ranges{display:flex;gap:5px;flex-wrap:wrap;margin-top:12px}.block-card details{border-top:1px solid #edf1f6;margin-top:13px;padding-top:10px}.block-card summary{font-size:11px;color:var(--blue);font-weight:850;cursor:pointer}.block-card ol{margin:9px 0 0;padding-left:20px;font-size:12px;color:#435267}.block-card li{padding:3px 0}.callout{border-left:4px solid var(--teal);background:#eef8f7;border-radius:0 14px 14px 0;padding:17px 19px;font-size:13px;margin-top:16px}.callout strong{color:#126b65}.governance-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.gov-card{border:1px solid var(--line);background:white;border-radius:15px;padding:18px}.gov-card h3{color:var(--navy);font-size:14px;margin:0 0 6px}.gov-card p{font-size:12px;color:var(--muted);margin:0}.footer{padding:24px 0 32px;border-top:1px solid var(--line);color:#7b8796;font-size:11px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}.empty{padding:28px;color:var(--muted);text-align:center}.search{border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:220px;background:#fff;color:var(--ink);outline:none}.search:focus{border-color:#7da2db;box-shadow:0 0 0 3px #eaf1fb}.process-list-row{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.small-muted{font-size:11px;color:var(--muted)}
+@media(max-width:1100px){.toprow{flex-wrap:wrap;padding:12px 0}.nav{order:3;width:100%;overflow:auto;flex-wrap:nowrap}.nav button{white-space:nowrap}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.kpis{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.shell{padding:0 15px}.hero{padding:26px 22px}.grid,.phase-grid,.block-grid,.governance-grid,.two-col{grid-template-columns:1fr}.process-title{flex-direction:column}.process-count{display:flex;align-items:center;gap:10px}.process-count b{font-size:22px}.actions .btn{padding:9px}.brand{min-width:0}.brand-title{font-size:12px}.actions{margin-left:auto}.kpis{gap:9px}.kpi{padding:13px}.kpi .number{font-size:24px}.section-head{align-items:start;flex-direction:column}.search{width:100%}.toprow{gap:12px}}
+@media print{body{background:white}.topbar,.actions,.nav,.process-tabs,.search,.footer .no-print{display:none!important}.shell{max-width:none;padding:0}.view{display:none!important}#view-processes{display:block!important}.hero{background:white;color:#142b4a;border:1px solid #ccd7e5;box-shadow:none}.hero p{color:#475569}.hero .chip{color:#142b4a;border-color:#ccd7e5}.phase-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.phase{break-inside:avoid}.phase:not([open]) .phase-body{display:block}.panel,.proc-card{box-shadow:none}main{padding:0}.print-title{display:block}}
+
+/* Portal / fluxogramas */
+.portal-intro{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:18px 0 12px;color:var(--muted);font-size:12px}
+.portal-intro strong{color:var(--navy)}
+.diagram-panel{margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 5px 18px rgba(26,48,78,.035)}
+.diagram-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.diagram-head h3{font-size:18px;line-height:1.25;color:var(--navy);margin:0 0 5px;letter-spacing:-.02em}
+.diagram-head p{font-size:12px;color:var(--muted);margin:0;max-width:750px}
+.flow-legend{display:flex;gap:10px 16px;align-items:center;flex-wrap:wrap;margin:0 0 18px;padding:10px 12px;background:#f7f9fc;border:1px solid #edf1f6;border-radius:11px;color:#596a80;font-size:10px;font-weight:750}
+.legend-symbol{display:inline-flex;align-items:center;gap:6px}
+.legend-circle{width:15px;height:15px;border:2px solid #1c8b81;border-radius:50%;background:#e9f7f4;display:inline-block}
+.legend-task{width:20px;height:13px;border:1px solid #8eadd8;background:#eff5ff;border-radius:4px;display:inline-block}
+.legend-gateway{width:13px;height:13px;border:1px solid #d4a247;background:#fff5df;transform:rotate(45deg);display:inline-block;margin:0 4px}
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;max-width:100%;}
+.flow-start,.flow-end{display:flex;align-items:center;justify-content:center;gap:9px;border-radius:999px;padding:9px 17px;font-size:11px;font-weight:850;letter-spacing:.02em;min-width:124px}
+.flow-start{color:#146d65;background:#e9f7f4;border:1.5px solid #8bcfc4}
+.flow-end{color:#1d4f99;background:#eef4ff;border:1.5px solid #9db9e8}
+.event-dot{width:12px;height:12px;border:2px solid currentColor;border-radius:50%;display:inline-block}
+.event-dot.end{border-width:4px}
+.flow-arrow{height:27px;display:flex;align-items:center;justify-content:center;color:#8292a8;font-size:21px;font-weight:700;line-height:1;position:relative}
+.flow-arrow:before{content:"";position:absolute;top:0;height:13px;border-left:1.5px solid #b9c5d4}
+.flow-arrow span{position:relative;top:6px;background:#fff;padding:0 5px}
+.flow-phase{width:min(100%,760px);border:1px solid #cbd9ec;border-left:5px solid var(--blue);border-radius:13px;background:linear-gradient(100deg,#f4f8ff,#fff 65%);padding:13px 15px;display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:12px;text-align:left;box-shadow:0 2px 8px rgba(28,70,125,.035);transition:box-shadow .15s,border-color .15s}
+.flow-phase:hover{border-color:#83a7dc;box-shadow:0 5px 14px rgba(28,70,125,.08)}
+.flow-phase-num{width:39px;height:39px;border-radius:11px;background:#e5efff;color:#225db0;display:grid;place-items:center;font-size:12px;font-weight:900}
+.flow-phase-copy{min-width:0;display:block}
+.flow-phase-kicker{display:block;font-size:9px;color:#5076aa;letter-spacing:.11em;font-weight:900;text-transform:uppercase;margin-bottom:3px}
+.flow-phase-title{display:block;color:var(--navy);font-size:13px;font-weight:850;line-height:1.3}
+.flow-phase-sub{display:block;font-size:11px;color:var(--muted);margin-top:3px;line-height:1.35}
+.flow-range{font-size:10px;color:#285ca9;background:#eaf1fc;border:1px solid #d7e4f8;border-radius:7px;padding:5px 7px;font-weight:850;white-space:nowrap}
+.flow-gateway{width:min(100%,760px);border:1px solid #f0dcae;border-radius:13px;background:#fffbf0;padding:15px 17px;display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;align-items:start}
+.gateway-icon-wrap{width:38px;height:38px;display:grid;place-items:center}
+.gateway-diamond{width:22px;height:22px;border:1.5px solid #c58b27;background:#fff1cd;transform:rotate(45deg);display:grid;place-items:center;color:#805414;font-size:13px;font-weight:900}
+.gateway-diamond span{transform:rotate(-45deg);display:block}
+.gateway-copy{min-width:0}
+.gateway-kicker{font-size:9px;text-transform:uppercase;letter-spacing:.11em;color:#9a6b18;font-weight:900;margin-bottom:3px}
+.gateway-title{font-size:13px;font-weight:900;line-height:1.35;color:#5f4516;margin-bottom:9px}
+.gateway-branches{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.branch{font-size:10px;line-height:1.4;padding:8px 9px;border-radius:9px;display:block}
+.branch b{display:block;font-size:9px;letter-spacing:.08em;margin-bottom:2px}
+.branch-yes{background:#edf8f3;border:1px solid #cce9db;color:#21664f}
+.branch-no{background:#fff4e9;border:1px solid #f1dcc6;color:#8c5422}
+.branch-info{background:#eef4ff;border:1px solid #d5e3fa;color:#315c98}
+.flow-gateway-detail{font-size:10px;line-height:1.45;margin-top:8px;color:#7e6a42}
+.flow-action{border:1px solid #d6e0ed;background:#fff;color:#2b5fa5;border-radius:8px;padding:7px 9px;font-size:10px;font-weight:850;white-space:nowrap;cursor:pointer}
+.flow-action:hover{background:#eef4ff}
+.flow-endnote{margin:13px auto 0;width:min(100%,760px);padding:11px 13px;border-radius:10px;border:1px dashed #cad6e5;background:#fafcff;color:#5b6b80;font-size:11px;line-height:1.45}
+.flow-endnote strong{color:var(--navy)}
+.diagram-caveat{font-size:10px;color:#7b8796;line-height:1.5;margin:15px 0 0;border-top:1px solid #edf1f6;padding-top:12px}
+.phase-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:24px 0 12px}
+.phase-toolbar h3{margin:0;color:var(--navy);font-size:18px}
+.phase-toolbar p{margin:4px 0 0;color:var(--muted);font-size:11px}
+.phase-toolbar-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.phase-toolbar-actions .btn{font-size:11px;padding:8px 10px}
+.phase[open]{border-color:#c9d8eb}
+.phase:not([open]){box-shadow:0 2px 8px rgba(26,48,78,.025)}
+.phase summary{min-height:68px}
+.phase-body{padding-top:1px}
+.step p{font-size:12.5px}
+.process-title{align-items:center}
+.process-title p{font-size:13px;line-height:1.55}
+.process-count{min-width:105px}
+.process-count span{line-height:1.25;display:block;margin-top:5px}
+.ticket-note{margin-top:12px;background:#f7f9fc;border:1px solid #e3eaf3;border-radius:12px;padding:13px 15px;color:#4b5c71;font-size:12px;line-height:1.5}
+.ticket-note strong{display:block;color:var(--navy);margin-bottom:4px}
+@media(max-width:760px){.diagram-panel{padding:14px}.flow-phase{grid-template-columns:36px minmax(0,1fr);gap:10px;padding:11px}.flow-phase-num{width:34px;height:34px}.flow-range{grid-column:2;justify-self:start}.flow-gateway{grid-template-columns:34px minmax(0,1fr);gap:8px;padding:12px}.gateway-branches{grid-template-columns:1fr}.flow-action{display:none}.process-title{align-items:flex-start}.phase-toolbar-actions{width:100%}.phase-toolbar-actions .btn{flex:1}}
+@media print{.diagram-panel{box-shadow:none;break-inside:avoid}.flow-phase,.flow-gateway{box-shadow:none;break-inside:avoid}.flow-arrow{height:20px}.phase-toolbar-actions{display:none!important}.phase:not([open]) .phase-body{display:block}.phase-grid{grid-template-columns:1fr 1fr}.flow-gateway{background:#fffdf7}}
+
+
+@media print{
+ body.print-chart-only .topbar,body.print-chart-only .process-tabs,body.print-chart-only #view-processes>.hero,body.print-chart-only #view-processes>.process-list-row,body.print-chart-only #processDetail>:not(.diagram-panel),body.print-chart-only .diagram-head button{display:none!important}
+ body.print-chart-only #processDetail>.diagram-panel{display:block!important;margin:0;border:0;padding:0;box-shadow:none;break-inside:avoid}
+ body.print-chart-only .flowchart{max-width:100%}
+ body.print-chart-only .flow-phase,body.print-chart-only .flow-gateway{break-inside:avoid;box-shadow:none}
+ body.print-chart-only .diagram-caveat{font-size:9pt}
+}
+
+
+/* Fluxogramas detalhados por atividade */
+.flowchart{align-items:stretch;width:min(100%,980px);margin:0 auto;gap:0}
+.flow-chart-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 auto 14px;width:min(100%,980px)}
+.flow-chart-toolbar p{margin:0;font-size:11px;color:var(--muted);max-width:560px}
+.flow-chart-actions{display:flex;gap:7px;flex-wrap:wrap}
+.flow-chart-actions .btn{font-size:11px;padding:8px 10px}
+.flow-phase-accordion{width:100%;border:1px solid #cbd9ec;border-radius:14px;background:#fff;overflow:hidden;box-shadow:0 3px 10px rgba(28,70,125,.035)}
+.flow-phase-summary{list-style:none;display:grid;grid-template-columns:42px minmax(0,1fr) auto;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;background:linear-gradient(100deg,#f4f8ff,#fff 75%);min-height:78px}
+.flow-phase-summary::-webkit-details-marker{display:none}
+.flow-phase-accordion[open]>.flow-phase-summary{border-bottom:1px solid #e5ecf5}
+.flow-phase-accordion[open]{border-color:#a9c2e4}
+.flow-phase-summary .flow-phase-num{width:38px;height:38px;border-radius:11px;background:#e5efff;color:#225db0;display:grid;place-items:center;font-size:12px;font-weight:900}
+.flow-phase-copy{display:flex;min-width:0;flex-direction:column;gap:3px}
+.flow-phase-kicker{font-size:9px;color:#5076aa;letter-spacing:.1em;font-weight:900;text-transform:uppercase}
+.flow-phase-title{font-size:13px;color:var(--navy);font-weight:850;line-height:1.35}
+.flow-phase-sub{font-size:10px;color:var(--muted);line-height:1.4}
+.flow-phase-open-label{font-size:10px;font-weight:850;color:#285ca9;background:#eaf1fc;border:1px solid #d7e4f8;border-radius:7px;padding:5px 7px;white-space:nowrap}
+.flow-phase-accordion[open] .flow-phase-open-label{background:#e9f7f4;border-color:#c9e8e2;color:#16786f}
+.flow-step-flow{display:flex;flex-direction:column;align-items:center;padding:13px 14px 16px;background:#fbfcfe}
+.flow-task-node{display:grid;grid-template-columns:42px minmax(0,1fr);align-items:start;gap:11px;width:min(100%,850px);border:1px solid #dbe4ef;background:#fff;border-radius:11px;padding:12px 13px;box-shadow:0 2px 6px rgba(26,48,78,.025);scroll-margin-top:100px;transition:border-color .15s,box-shadow .15s}
+.flow-task-node:hover{border-color:#9bb7de;box-shadow:0 4px 12px rgba(26,48,78,.06)}
+.flow-task-node.is-highlighted{border-color:#2b70cd;box-shadow:0 0 0 4px rgba(43,112,205,.13)}
+.flow-task-number{width:34px;height:34px;border-radius:10px;background:#edf3fd;color:#225db0;display:grid;place-items:center;font-size:11px;font-weight:900}
+.flow-task-copy{min-width:0}
+.flow-task-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:4px}
+.flow-task-kicker{font-size:9px;text-transform:uppercase;letter-spacing:.09em;font-weight:900;color:#6a7a90}
+.flow-task-role{font-size:9px;font-weight:850;border-radius:99px;background:#edf5f4;color:#177a72;padding:4px 7px}
+.flow-task-condition{font-size:9px;font-weight:850;border-radius:99px;background:#fff0d7;color:#8a5c12;padding:4px 7px}
+.flow-task-description{font-size:12px;line-height:1.5;color:#34465d}
+.flow-task-description strong{color:var(--navy)}
+.flow-step-arrow{height:25px;display:flex;align-items:center;justify-content:center;color:#8b9aaf;font-size:18px;line-height:1;position:relative;width:100%}
+.flow-step-arrow:before{content:"";position:absolute;top:0;bottom:10px;left:50%;border-left:1.5px solid #bcc9d8}
+.flow-step-arrow span{position:relative;top:5px;background:#fbfcfe;padding:0 6px}
+.flow-gateway{width:min(100%,850px);grid-template-columns:42px minmax(0,1fr);padding:13px 14px;margin:0;scroll-margin-top:100px}
+.flow-gateway.is-highlighted{border-color:#c58b27;box-shadow:0 0 0 4px rgba(197,139,39,.13)}
+.flow-gateway-left{display:flex;flex-direction:column;align-items:center;gap:6px}
+.flow-gateway-step-no{height:23px;min-width:29px;padding:0 5px;border-radius:7px;background:#fff0c9;border:1px solid #e8ce8d;color:#805414;display:grid;place-items:center;font-weight:900;font-size:10px}
+.flow-gateway .gateway-icon-wrap{width:33px;height:33px}
+.flow-gateway .gateway-diamond{width:20px;height:20px}
+.flow-gateway-context{font-size:10px;line-height:1.45;color:#7d6a47;margin:-2px 0 8px}
+.flow-gateway-context strong{color:#5f4516}
+.flow-gateway .gateway-title{margin-bottom:8px}
+.flow-gateway .gateway-branches{gap:8px}
+.flow-gateway .branch{border-radius:9px;text-align:left;line-height:1.4;white-space:normal}
+button.branch{cursor:pointer;font:inherit;font-size:10px;width:100%;transition:border-color .15s,transform .15s;background:#fff}
+button.branch:hover{border-color:#8caad3;transform:translateY(-1px)}
+.branch b{font-size:9px}
+.branch-route{display:block;margin-top:4px;font-size:9px;opacity:.85;font-weight:800}
+.flow-return-note{width:min(100%,850px);border:1px dashed #9db9e8;background:#f0f5fd;color:#355b91;border-radius:10px;padding:10px 12px;font-size:10px;line-height:1.45;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.flow-return-note strong{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
+.flow-return-note button{border:1px solid #cad9ef;background:white;border-radius:7px;padding:6px 8px;color:#285ca9;font-size:10px;font-weight:850;white-space:nowrap;cursor:pointer}
+.flow-return-note button:hover{background:#e5efff}
+.flow-phase-connector{height:34px;display:flex;align-items:center;justify-content:center;color:#8292a8;font-size:22px;font-weight:800;position:relative}
+.flow-phase-connector:before{content:"";position:absolute;top:0;bottom:12px;left:50%;border-left:1.5px solid #b9c5d4}
+.flow-phase-connector span{position:relative;top:7px;background:#fff;padding:0 7px}
+.flow-chart-start{margin-bottom:0}
+.flowchart .flow-end{width:fit-content;max-width:100%;margin:0 auto}
+.flow-chart-caption{font-size:10px;line-height:1.5;color:#6e7c8e;margin-top:13px;border-top:1px solid #edf1f6;padding-top:12px}
+.flow-chart-caption strong{color:var(--navy)}
+@media(max-width:760px){.flow-phase-summary{grid-template-columns:36px minmax(0,1fr);gap:9px;padding:12px}.flow-phase-summary .flow-phase-num{width:33px;height:33px}.flow-phase-open-label{grid-column:2;justify-self:start}.flow-task-node{grid-template-columns:32px minmax(0,1fr);gap:9px;padding:10px}.flow-task-number{width:30px;height:30px}.flow-gateway{grid-template-columns:32px minmax(0,1fr);gap:8px;padding:11px}.flow-gateway .gateway-branches{grid-template-columns:1fr}.flow-return-note{align-items:flex-start;flex-direction:column}.flow-chart-actions{width:100%}.flow-chart-actions .btn{flex:1}}
+@media print{.flow-chart-toolbar,.flow-phase-open-label,.flow-return-note button{display:none!important}.flow-phase-accordion:not([open])>.flow-step-flow{display:none}.flow-phase-accordion[open]{break-inside:avoid}.flow-task-node,.flow-gateway,.flow-return-note{box-shadow:none;break-inside:avoid}.flow-phase-connector,.flow-step-arrow{height:18px}.flow-chart-start{margin-top:0}}
+
+</style>
+</head>
+<body>
+<header class="topbar"><div class="shell toprow">
+  <div class="brand"><div class="brand-mark">DI</div><div><div class="brand-title">CENTRAL DE PROCESSOS</div><div class="brand-sub">Portal de Processos de Integração</div></div></div>
+  <nav class="nav" aria-label="Navegação principal">
+    <button class="active" data-view="overview">Visão executiva</button><button data-view="compare">Etapas comuns</button><button data-view="processes">Processos e fluxogramas</button><button data-view="governance">Governança</button>
+  </nav>
+  <div class="actions"><button class="btn" id="presentBtn" title="Alternar modo de apresentação">⛶ Apresentar</button><button class="btn primary" id="printBtn">Imprimir / PDF</button></div>
+</div></header>
+<main class="shell">
+<section class="view active" id="view-overview">
+  <div class="hero"><div class="eyebrow">Referência de processo • Outubro de 2026</div><h1>Um modelo claro para conduzir demandas de integração.</h1><p>Consulte os cinco processos, veja quem faz cada atividade e acompanhe o fluxograma do início ao encerramento. O conteúdo foi organizado para uso por áreas técnicas, gestão, PMO, Orçamentos e demais envolvidos.</p><div class="hero-meta"><span class="chip">05 processos</span><span class="chip">01 linguagem operacional</span><span class="chip">Blocos reutilizáveis</span><span class="chip">Base para BPMN 2.0</span></div></div>
+  <div class="kpis"><div class="kpi"><div class="number">05</div><div class="label">Fluxos padronizados</div><div class="desc">Do projeto novo à correção de Bug</div></div><div class="kpi"><div class="number">04</div><div class="label">Fluxos de integração</div><div class="desc">Com fases técnicas que se repetem</div></div><div class="kpi"><div class="number">01</div><div class="label">Fluxo de defeito</div><div class="desc">Bug tem ciclo de correção e reteste próprio</div></div><div class="kpi"><div class="number">07</div><div class="label">Blocos reutilizáveis</div><div class="desc">Comerciais, formais e técnicos</div></div></div>
+  <div class="section-head"><div><h2>Biblioteca de processos</h2><p>Selecione um processo para visualizar o fluxo, as decisões e todas as etapas numeradas em sequência.</p></div></div>
+  <div class="grid" id="overviewCards"></div>
+  <div class="callout"><strong>Em cada processo:</strong> o fluxograma detalha cada atividade numerada, com responsável e caminhos de decisão; as fases abaixo permitem consultar a descrição completa, os documentos de entrada e os pontos que precisam de validação.</div>
+  <div class="two-col"><div class="panel"><div class="section-head" style="margin:0 0 14px"><div><h2 style="font-size:18px">O que o modelo busca</h2><p>Consistência da entrada ao encerramento.</p></div></div><ul class="focus-list"><li><span class="dot">1</span><span><b>Rastreabilidade</b><br><span class="small-muted">Cada demanda tem documentação, responsável e próximo passo identificáveis.</span></span></li><li><span class="dot">2</span><span><b>Responsabilidades claras</b><br><span class="small-muted">As atividades são descritas como responsável + ação + objeto.</span></span></li><li><span class="dot">3</span><span><b>Menos retrabalho</b><br><span class="small-muted">Etapas semelhantes usam a mesma nomenclatura e podem ser apresentadas como blocos compartilhados.</span></span></li></ul></div>
+  <div class="panel"><div class="section-head" style="margin:0 0 14px"><div><h2 style="font-size:18px">Jornada de referência</h2><p>Macroetapas típicas das demandas de integração.</p></div></div><div class="mini-flow"><div class="node">Solicitação</div><div class="arrow">→</div><div class="node">Análise e aprovação</div><div class="arrow">→</div><div class="node">Formalização</div><div class="arrow">→</div><div class="node">Execução técnica</div><div class="arrow">→</div><div class="node">Validação e entrega</div></div><div class="callout"><strong>Observação:</strong> nem todos os processos percorrem todas as macroetapas. A CCI sem orçamento dispensa o orçamento; a correção de Bug segue um ciclo separado de investigação, correção e reteste.</div></div></div>
+</section>
+<section class="view" id="view-compare">
+  <div class="hero"><div class="eyebrow">Comparativo de processos</div><h1>Reutilizar o que é comum. Destacar o que muda.</h1><p>Os intervalos indicam a numeração sequencial de atividades dentro de cada processo. Itens de preenchimento do ticket são exibidos como requisitos, não como atividade separada.</p></div>
+  <div class="section-head"><div><h2>Mapa de blocos compartilhados</h2><p>Selecione “Ver sequência” para abrir uma lista de atividades sugerida para cada bloco.</p></div></div>
+  <div class="compare-scroll"><table class="compare-table"><thead><tr><th>Bloco</th><th>1 · Novo projeto</th><th>2 · CCI com orçamento</th><th>3 · CCI sem orçamento</th><th>4 · Nova integração</th><th>5 · Bug</th></tr></thead><tbody id="compareTableBody"></tbody></table></div>
+  <div class="section-head"><div><h2>Blocos que podem virar subprocessos-padrão</h2><p>Estas sequências ajudam a reduzir repetição no material de apresentação e na modelagem BPMN.</p></div></div>
+  <div class="block-grid" id="blockCards"></div>
+  <div class="callout"><strong>Como interpretar os intervalos:</strong> eles foram numerados nesta apresentação a partir das atividades descritas no documento de processos. O número serve para comparação entre fluxos; não representa um ID de ticket nem substitui a sequência BPMN definitiva.</div>
+</section>
+<section class="view" id="view-processes">
+  <div class="hero"><div class="eyebrow">Biblioteca de processos</div><h1>Processos, fluxogramas e responsabilidades</h1><p>Para cada processo, consulte primeiro o desenho geral e depois expanda as fases para ver as atividades numeradas, os responsáveis e os requisitos documentais. A numeração recomeça em 1 em cada processo.</p></div>
+  <div class="process-tabs" id="processTabs" role="tablist" aria-label="Selecionar processo"></div>
+  <div class="process-list-row"><div class="small-muted" id="processInstruction">Abra uma fase para consultar as atividades. O fluxograma permite saltar diretamente para a fase correspondente.</div><input class="search" id="stepSearch" type="search" placeholder="Buscar atividade ou responsável…" aria-label="Buscar atividade"></div>
+  <div id="processDetail" style="margin-top:14px"></div>
+</section>
+<section class="view" id="view-governance">
+  <div class="hero"><div class="eyebrow">Controles e decisões</div><h1>Governança para manter os fluxos consistentes.</h1><p>Temas que precisam de critérios comuns antes da publicação definitiva dos procedimentos e da consolidação dos diagramas BPMN.</p></div>
+  <div class="section-head"><div><h2>Pontos para validação gerencial</h2><p>Transforme estes tópicos em decisões de governança, com responsável e data de definição.</p></div></div>
+  <div class="governance-grid" id="governanceCards"></div>
+  <div class="section-head"><div><h2>Princípios de modelagem</h2><p>Regras de leitura e manutenção dos processos.</p></div></div>
+  <div class="governance-grid"><div class="gov-card"><h3>1 · Responsabilidade explícita</h3><p>Uma atividade deve ter um responsável identificável e uma ação observável.</p></div><div class="gov-card"><h3>2 · Decisão com saída definida</h3><p>Decisões como “necessita orçamento?”, “precisa de LI/CCI?” e “Bug resolvido?” devem ter saídas claras, como Sim/Não, quando aplicável.</p></div><div class="gov-card"><h3>3 · Retorno para correção</h3><p>Se a validação falhar, o fluxo deve retornar à etapa capaz de resolver a pendência, com evidências registradas.</p></div><div class="gov-card"><h3>4 · Fechamento rastreável</h3><p>O encerramento deve ter critérios mínimos: documentação, validação, aceite aplicável e atualização do controle do projeto.</p></div></div>
+  <div class="callout"><strong>Recomendação:</strong> antes de publicar como procedimento definitivo, validar os critérios de orçamento, obrigatoriedade de LI/CCI, papéis permitidos para abertura de tickets, condições de acionamento de Desenvolvimento e critérios de encerramento.</div>
+</section>
+<div class="footer"><span>Modelo Operacional · Gestão de Demandas de Integração</span><span>Portal de referência operacional · Versão para alinhamento e validação gerencial</span><span class="no-print">Arquivo HTML independente · funciona sem conexão com a internet</span></div>
+</main>
+<script>
+const processes = [
+ {id:1,name:'Novo Projeto de Integração',short:'Novo projeto',tag:'Projeto novo',goal:'Estabelecer o fluxo desde a elaboração da SAI até a conclusão das atividades de cada integração do projeto.',phases:[
+  {name:'Elaboração e validação da estimativa',steps:['Pré-Vendas elabora a SAI com as informações iniciais do projeto.','Pré-Vendas envia a SAI por e-mail aos responsáveis pelo processo de orçamento.','Pré-Vendas abre um Change Request para Orçamentos, anexando a SAI.','Orçamentos analisa a SAI e identifica as integrações contempladas.','Orçamentos estima as horas necessárias para cada integração.','Orçamentos valida as estimativas com Desenvolvimento.','Orçamentos valida as estimativas com Serviços Técnicos.','Orçamentos consolida as estimativas e gera a SAI com as horas discriminadas por integração.']},
+  {name:'Fechamento comercial e recebimento do projeto',steps:['Vendas verifica o fechamento comercial do projeto com o cliente.','Gerente de Projetos recebe o projeto após a confirmação do fechamento.','Gerente de Projetos abre um ticket para Orçamentos, solicitando a geração dos orçamentos conforme o contrato.','Orçamentos gera os orçamentos correspondentes às integrações e às condições contratuais.','Orçamentos abre a Ordem de Serviço (OS) para formalizar o encaminhamento do projeto.','Orçamentos envia a OS ao PMO.']},
+  {name:'Estruturação do projeto pelo PMO',steps:['PMO cria o projeto ou subprojeto conforme a estrutura aprovada.','PMO cria um Work Item (WI) para cada integração.','PMO encaminha os WIs para Serviços Técnicos.']},
+  {name:'Triagem e preparação técnica',steps:['Serviços Técnicos realiza a triagem da demanda.','Serviços Técnicos planeja a execução, considerando prioridades, dependências e disponibilidade.','Consultor Técnico verifica a necessidade de criar uma LI.','Consultor Técnico elabora a LI, quando necessária.','Consultor Técnico encaminha a LI para assinatura.','Cliente assina a LI, quando aplicável.','Consultor Técnico anexa a LI assinada ao WI e atualiza a documentação da demanda.']},
+  {name:'Desenvolvimento',steps:['Serviços Técnicos encaminha o WI para a fila de Desenvolvimento, quando houver atividades de desenvolvimento ou documentação a serem realizadas.','Desenvolvimento executa as atividades solicitadas, incluindo implementação, criação de manuais ou atualização de manuais.','Desenvolvimento documenta as atividades realizadas no WI.','Desenvolvimento devolve o WI para Serviços Técnicos.']},
+  {name:'Configuração, validação e entrega',steps:['Serviços Técnicos reavalia a demanda e planeja as atividades pendentes.','Consultor Técnico realiza os ajustes de configuração necessários à integração.','Consultor Técnico valida o funcionamento da integração.','Consultor Técnico apresenta a entrega ao cliente.','Consultor Técnico elabora o Termo de Entrega da Demanda.','Cliente assina o Termo de Entrega da Demanda.','Consultor Técnico anexa o Termo de Entrega assinado ao WI.','Consultor Técnico comunica ao Gerente de Projetos a conclusão do WI.','Gerente de Projetos acompanha a conclusão do item e atualiza o controle do projeto, conforme o procedimento de encerramento.']}
+ ], notes:[{title:'Documento de entrada',text:'SAI — as estimativas são discriminadas por integração.'},{title:'Documento técnico',text:'LI, quando necessária, além do Termo de Entrega da Demanda.'}]},
+ {id:2,name:'CCI com Orçamento',short:'CCI com orçamento',tag:'Alteração de escopo',goal:'Controlar alterações de escopo de uma integração que exigem estimativa, orçamento e aprovação antes da execução.',phases:[
+  {name:'Solicitação e abertura do ticket',steps:['Cliente identifica a necessidade de alteração em uma integração existente.','Cliente formaliza a solicitação ao Gerente de Projetos e ao Consultor Técnico responsável pela integração.','Consultor Técnico analisa as informações iniciais e identifica a necessidade de abertura de uma CCI com orçamento.','Consultor Técnico abre o ticket com as informações necessárias para avaliação.']},
+  {name:'Análise e elaboração do orçamento',steps:['Orçamentos recebe o ticket encaminhado à sua fila.','Orçamentos analisa a solicitação e esclarece as informações necessárias.','Orçamentos estima as horas necessárias para realizar a alteração.','Orçamentos valida a estimativa com Desenvolvimento.','Orçamentos valida a estimativa com Serviços Técnicos.','Orçamentos elabora o orçamento com base nas estimativas aprovadas.','Orçamentos envia o orçamento ao Consultor Técnico, ao Gerente de Projetos e ao cliente, conforme o procedimento estabelecido.']},
+  {name:'Avaliação e aprovação comercial',steps:['Consultor Técnico encaminha o orçamento ao Gerente de Projetos para avaliação.','Gerente de Projetos verifica a possibilidade de cobrança, considerando o contrato e as condições comerciais.','Gerente de Projetos e/ou Consultor Técnico solicita a assinatura do orçamento ao cliente, conforme a responsabilidade definida.','Cliente analisa e assina o orçamento.','Consultor Técnico ou cliente anexa o orçamento assinado ao ticket.','Consultor Técnico ou cliente retorna o ticket para Orçamentos, com a documentação da aprovação.']},
+  {name:'Formalização e abertura da demanda',steps:['Orçamentos verifica a documentação da aprovação.','Orçamentos abre a Ordem de Serviço (OS).','Orçamentos encaminha a OS ao PMO.','PMO cria o projeto ou subprojeto, conforme aplicável.','PMO cria um WI para cada integração contemplada.','PMO encaminha os WIs para Serviços Técnicos.']},
+  {name:'Triagem e documentação da alteração',steps:['Serviços Técnicos realiza a triagem da demanda.','Serviços Técnicos planeja a execução e verifica as dependências.','Consultor Técnico verifica a necessidade de formalizar a alteração por meio de uma CCI.','Consultor Técnico elabora a CCI, quando necessária.','Consultor Técnico encaminha a CCI para assinatura.','Cliente assina a CCI.','Consultor Técnico anexa a CCI assinada ao WI e atualiza a documentação.']},
+  {name:'Desenvolvimento',steps:['Serviços Técnicos encaminha o WI para Desenvolvimento, quando houver atividades de desenvolvimento ou documentação.','Desenvolvimento executa as alterações aprovadas, incluindo implementação, criação de manuais ou atualização de manuais.','Desenvolvimento documenta as atividades realizadas no WI.','Desenvolvimento devolve o WI para Serviços Técnicos.']},
+  {name:'Configuração, validação e encerramento',steps:['Serviços Técnicos reavalia a demanda e planeja as atividades pendentes.','Consultor Técnico realiza os ajustes de configuração necessários.','Consultor Técnico valida o funcionamento da integração.','Consultor Técnico apresenta a entrega ao cliente.','Consultor Técnico elabora o Termo de Entrega da Demanda.','Cliente assina o Termo de Entrega da Demanda.','Consultor Técnico anexa o Termo de Entrega assinado ao WI.','Consultor Técnico comunica ao Gerente de Projetos a conclusão da CCI.','Gerente de Projetos acompanha a conclusão do item e atualiza o controle do projeto.']}
+ ], notes:[{title:'Requisitos do ticket',text:'Identificar a demanda como CCI, indicar que necessita de orçamento, descrever a alteração e preencher Categoria: Customização e Integração / Subcategoria: Customização de Integração.'},{title:'Contato de apoio informado no procedimento',text:'Andressa Caetano — andressa.caetano@philips.com.'}]},
+ {id:3,name:'CCI sem Orçamento',short:'CCI sem orçamento',tag:'Alteração de escopo',goal:'Tratar alterações de escopo que não necessitam de orçamento, mantendo a formalização da mudança e os controles técnicos.',phases:[
+  {name:'Solicitação e abertura do ticket',steps:['Cliente identifica a necessidade de alteração em uma integração existente.','Cliente formaliza a solicitação ao Gerente de Projetos e ao Consultor Técnico responsável.','Consultor Técnico analisa as informações iniciais e identifica a necessidade de uma CCI sem orçamento.','Consultor Técnico abre o ticket com as informações necessárias.']},
+  {name:'Validação e encaminhamento',steps:['Orçamentos recebe o ticket encaminhado à sua fila.','Orçamentos verifica a indicação de dispensa de orçamento.','Orçamentos confirma que não é necessária a elaboração de orçamento, conforme os critérios aplicáveis.','Orçamentos encaminha o Change Request para Serviços Técnicos.']},
+  {name:'Triagem e documentação da alteração',steps:['Serviços Técnicos realiza a triagem da demanda.','Serviços Técnicos planeja a execução e verifica as dependências.','Consultor Técnico verifica a necessidade de formalizar a alteração por meio de uma CCI.','Consultor Técnico elabora a CCI, quando necessária.','Consultor Técnico encaminha a CCI para assinatura.','Cliente assina a CCI.','Consultor Técnico anexa a CCI assinada ao WI e atualiza a documentação.']},
+  {name:'Desenvolvimento',steps:['Serviços Técnicos encaminha o WI para Desenvolvimento, quando houver atividades de desenvolvimento ou documentação.','Desenvolvimento executa as alterações aprovadas, incluindo implementação, criação de manuais ou atualização de manuais.','Desenvolvimento documenta as atividades realizadas no WI.','Desenvolvimento devolve o WI para Serviços Técnicos.']},
+  {name:'Configuração, validação e encerramento',steps:['Serviços Técnicos reavalia a demanda e planeja as atividades pendentes.','Consultor Técnico realiza os ajustes de configuração necessários.','Consultor Técnico valida o funcionamento da integração.','Consultor Técnico apresenta a entrega ao cliente.','Consultor Técnico elabora o Termo de Entrega da Demanda.','Cliente assina o Termo de Entrega da Demanda.','Consultor Técnico anexa o Termo de Entrega assinado ao WI.','Consultor Técnico comunica ao Gerente de Projetos a conclusão da CCI.','Gerente de Projetos acompanha a conclusão do item e atualiza o controle do projeto.']}
+ ], notes:[{title:'Requisito do ticket',text:'Identificar a demanda como CCI e indicar expressamente que não necessita de orçamento, além de descrever a alteração e preencher Categoria/Subcategoria conforme o padrão.'},{title:'Ponto de controle',text:'Orçamentos deve confirmar a dispensa conforme os critérios aplicáveis antes de encaminhar para Serviços Técnicos.'}]},
+ {id:4,name:'Nova Integração com Orçamento',short:'Nova integração',tag:'Integração nova',goal:'Estabelecer o fluxo para solicitação, orçamento, aprovação e execução de uma nova integração.',phases:[
+  {name:'Solicitação e abertura do ticket',steps:['Cliente identifica a necessidade de uma nova integração.','Cliente abre o ticket com as informações iniciais da solicitação.','Suporte verifica a fila de atendimento, caso o ticket seja direcionado inicialmente ao Suporte.','Suporte encaminha o ticket para Orçamentos, quando a solicitação corresponder a uma demanda de nova integração com orçamento.','Orçamentos recebe o ticket e inicia a avaliação.']},
+  {name:'Análise e elaboração do orçamento',steps:['Orçamentos analisa a necessidade e esclarece as informações necessárias.','Orçamentos estima as horas necessárias para desenvolver e implantar a integração.','Orçamentos valida a estimativa com Desenvolvimento.','Orçamentos valida a estimativa com Serviços Técnicos.','Orçamentos elabora o orçamento com base nas estimativas aprovadas.','Orçamentos envia o orçamento ao Consultor Técnico, ao Gerente de Projetos e ao cliente, conforme o procedimento estabelecido.']},
+  {name:'Avaliação e aprovação comercial',steps:['Consultor Técnico encaminha o orçamento ao Gerente de Projetos para avaliação.','Gerente de Projetos verifica a possibilidade de cobrança, considerando o contrato e as condições comerciais.','Gerente de Projetos e/ou Consultor Técnico solicita a assinatura do orçamento ao cliente.','Cliente analisa e assina o orçamento.','Consultor Técnico ou cliente anexa o orçamento assinado ao ticket.','Consultor Técnico ou cliente retorna o ticket para Orçamentos, com a documentação da aprovação.']},
+  {name:'Formalização e abertura da demanda',steps:['Orçamentos verifica a documentação da aprovação.','Orçamentos abre a Ordem de Serviço (OS).','Orçamentos encaminha a OS ao PMO.','PMO cria o projeto ou subprojeto, conforme aplicável.','PMO cria um WI para cada integração contemplada.','PMO encaminha os WIs para Serviços Técnicos.']},
+  {name:'Triagem e preparação técnica',steps:['Serviços Técnicos realiza a triagem da demanda.','Serviços Técnicos planeja a execução e verifica as dependências.','Consultor Técnico verifica a necessidade de emitir uma LI.','Consultor Técnico elabora a LI, quando necessária.','Consultor Técnico encaminha a LI para assinatura.','Cliente assina a LI, quando aplicável.','Consultor Técnico anexa a LI assinada ao WI e atualiza a documentação.']},
+  {name:'Desenvolvimento',steps:['Serviços Técnicos encaminha o WI para Desenvolvimento, quando houver atividades de desenvolvimento ou documentação.','Desenvolvimento executa as atividades previstas, incluindo implementação, criação de manuais ou atualização de manuais.','Desenvolvimento documenta as atividades realizadas no WI.','Desenvolvimento devolve o WI para Serviços Técnicos.']},
+  {name:'Configuração, validação e encerramento',steps:['Serviços Técnicos reavalia a demanda e planeja as atividades pendentes.','Consultor Técnico realiza os ajustes de configuração necessários.','Consultor Técnico valida o funcionamento da integração.','Consultor Técnico apresenta a entrega ao cliente.','Consultor Técnico elabora o Termo de Entrega da Demanda.','Cliente assina o Termo de Entrega da Demanda.','Consultor Técnico anexa o Termo de Entrega assinado ao WI.','Consultor Técnico comunica ao Gerente de Projetos a conclusão da LI ou do WI, conforme o controle adotado.','Gerente de Projetos acompanha a conclusão do item e atualiza o controle do projeto.']}
+ ], notes:[{title:'Requisitos do ticket',text:'Descrição básica e objetivo da integração, Categoria: Customização e Integração / Subcategoria: Customização de Integração.'},{title:'Documento técnico',text:'LI, quando necessária, além do Termo de Entrega da Demanda.'}]},
+ {id:5,name:'Correção de Bug',short:'Correção de Bug',tag:'Defeito',goal:'Padronizar o registro, a análise, a correção e a validação de defeitos identificados em integrações existentes.',phases:[
+  {name:'Identificação e abertura do Bug',steps:['Consultor Técnico identifica o problema na integração.','Consultor Técnico reúne as evidências necessárias para análise.','Consultor Técnico abre o Bug, identificando a demanda como defeito.']},
+  {name:'Análise pelo Suporte',steps:['Suporte recebe o Bug.','Suporte analisa o problema e avalia as evidências fornecidas.','Suporte verifica se há informações suficientes para prosseguir com a análise.','Suporte solicita orientações adicionais ou novas evidências, quando necessário.','Consultor Técnico complementa as informações solicitadas, quando aplicável.','Suporte encaminha o Bug para Desenvolvimento, quando a correção exigir atuação do time de Desenvolvimento.']},
+  {name:'Correção pelo Desenvolvimento',steps:['Desenvolvimento analisa o problema e identifica a causa da falha.','Desenvolvimento realiza o ajuste necessário para corrigir o defeito.','Desenvolvimento atualiza o manual de utilização, quando necessário.','Desenvolvimento documenta a correção no Bug, incluindo a descrição do ajuste realizado, a versão ou Service Pack (SP) em que a correção estará disponível e vídeo ou outra evidência dos testes realizados na versão do cliente, conforme aplicável.','Desenvolvimento encaminha o Bug para o status “Aguardando testes do cliente”, quando a correção estiver disponível para validação.']},
+  {name:'Preparação para os testes',steps:['Consultor Técnico comunica ao Gerente de Projetos a necessidade de atualização de versão ou SP, quando aplicável.','Gerente de Projetos acompanha a atualização de versão ou SP, conforme o processo de gestão de mudanças.','Consultor Técnico realiza os ajustes de configuração necessários, seguindo as orientações do Desenvolvimento.','Consultor Técnico executa os testes para verificar se o problema foi corrigido.']},
+  {name:'Validação da correção',steps:['Consultor Técnico avalia o resultado dos testes: o problema foi resolvido?','Se NÃO: Consultor Técnico registra o resultado dos testes, descreve o que foi executado, anexa as evidências e retorna o Bug para Desenvolvimento. Desenvolvimento reavalia o problema e retoma a correção.','Se SIM: Consultor Técnico documenta o resultado dos testes, anexa as evidências quando aplicável, confirma a resolução e encerra o Bug conforme as regras de encerramento.']}
+ ], notes:[{title:'O Bug deve conter',text:'Descrição completa do problema, evidências (capturas de tela quando aplicável), artefato utilizado, passos para reprodução quando possível e resultado esperado versus obtido quando aplicável.'},{title:'Ciclo de reteste',text:'Se o defeito persistir, o Bug retorna para Desenvolvimento. O fluxo só termina após a confirmação da resolução e o registro das evidências aplicáveis.'}]}
+];
+const processOrder = ['1','2','3','4','5'];
+const commonBlocks = [
+ {name:'Estimativa e orçamento',desc:'Análise da solicitação, estimativa de horas, validações com as equipes técnicas e elaboração do orçamento.',ranges:[[1,'1–8 · estimativa SAI'],[2,'5–11'],[4,'6–11']],seq:['Orçamentos analisa a solicitação e esclarece dúvidas.','Orçamentos estima as horas necessárias.','A estimativa é validada com Desenvolvimento e Serviços Técnicos.','Orçamentos consolida as estimativas e prepara o orçamento ou documento de estimativa aplicável.']},
+ {name:'Aprovação comercial',desc:'Avaliação de cobrança, assinatura do orçamento e registro da aprovação.',ranges:[[2,'12–17'],[4,'12–17']],seq:['Consultor Técnico encaminha o orçamento para avaliação do Gerente de Projetos.','Gerente de Projetos verifica cobrança conforme contrato e condições comerciais.','O orçamento é encaminhado ao cliente para análise e assinatura.','A aprovação assinada é anexada e devolvida para Orçamentos.']},
+ {name:'Estruturação pelo PMO',desc:'Formalização por OS, estruturação do projeto e criação dos Work Items.',ranges:[[1,'15–17 · PMO'],[2,'18–23'],[4,'18–23']],seq:['Orçamentos abre e encaminha a OS ao PMO, conforme o fluxo.','PMO cria o projeto ou subprojeto aplicável.','PMO cria um WI para cada integração contemplada.','PMO encaminha os WIs para Serviços Técnicos.']},
+ {name:'Formalização por CCI',desc:'Registro da alteração de escopo por CCI, com assinatura e atualização do WI.',ranges:[[2,'24–30'],[3,'9–15']],seq:['Serviços Técnicos faz a triagem e planeja a execução.','Consultor Técnico verifica a necessidade de formalizar a alteração por CCI.','A CCI é elaborada e encaminhada para assinatura, quando necessária.','Cliente assina e Consultor Técnico anexa a documentação ao WI.']},
+ {name:'Formalização por LI',desc:'Verificação da necessidade de LI, assinatura quando aplicável e atualização da documentação.',ranges:[[1,'20–24'],[4,'24–30']],seq:['Serviços Técnicos faz a triagem e planeja a execução.','Consultor Técnico verifica se a LI é necessária.','A LI é elaborada e encaminhada para assinatura, quando aplicável.','Consultor Técnico anexa a LI assinada ao WI e atualiza a documentação.']},
+ {name:'Execução por Desenvolvimento',desc:'Implementação ou documentação, registro do trabalho e retorno do WI para Serviços Técnicos.',ranges:[[1,'25–28'],[2,'31–34'],[3,'16–19'],[4,'31–34']],seq:['Serviços Técnicos encaminha o WI quando houver atividade de Desenvolvimento ou documentação.','Desenvolvimento executa as atividades aprovadas.','Desenvolvimento documenta as atividades no WI.','Desenvolvimento devolve o WI para Serviços Técnicos.']},
+ {name:'Configuração, validação e entrega',desc:'Ajustes técnicos, validação do funcionamento, aceite e encerramento rastreável.',ranges:[[1,'29–37'],[2,'35–43'],[3,'20–28'],[4,'35–43']],seq:['Serviços Técnicos reavalia e planeja as atividades pendentes.','Consultor Técnico realiza os ajustes de configuração.','Consultor Técnico valida o funcionamento da integração.','A entrega é apresentada ao cliente e o termo é formalizado.','Documentação assinada é anexada ao WI.','Gerente de Projetos é informado e atualiza o controle do projeto.']}
+];
+const governance = [
+ ['LI e CCI','Confirmar em quais situações cada documento é obrigatório e se a atualização do WI ocorre antes ou depois da assinatura.'],
+ ['Orçamento','Definir os critérios para cobrança, dispensa de orçamento e aprovação comercial.'],
+ ['Abertura de tickets','Confirmar quando o cliente, o Consultor Funcional ou o Consultor Técnico pode abrir cada tipo de demanda.'],
+ ['Atuação de Desenvolvimento','Definir em quais cenários o WI precisa passar por Desenvolvimento e em quais a demanda pode ser resolvida diretamente por Serviços Técnicos.'],
+ ['Encerramento','Definir os critérios obrigatórios para concluir um WI, uma CCI ou um Bug.']
+];
+let activeProcess=1;
+const $=s=>document.querySelector(s);const $$=s=>Array.from(document.querySelectorAll(s));
+function setView(name){$$('.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+name));$$('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===name));window.scrollTo({top:0,behavior:'smooth'});if(name==='processes')renderProcess(activeProcess);}
+$$('.nav button').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));
+function totalSteps(p){return p.phases.reduce((n,x)=>n+x.steps.length,0)}
+function processCard(p){return `<article class="proc-card" role="button" tabindex="0" data-process-card="${p.id}"><div class="num">PROCESSO ${String(p.id).padStart(2,'0')}</div><h3>${p.name}</h3><p>${p.goal}</p><div class="bottom"><span class="tag">${p.tag}</span><span class="open-label">Ver fluxograma e etapas ↗</span></div></article>`}
+$('#overviewCards').innerHTML=processes.map(processCard).join('');
+function openProcess(id){activeProcess=id;setView('processes');renderProcess(id)}
+$$('[data-process-card]').forEach(el=>{el.addEventListener('click',()=>openProcess(+el.dataset.processCard));el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openProcess(+el.dataset.processCard)}})});
+function rangeLabel(start,end){return start===end?`Etapa ${start}`:`Etapas ${start}–${end}`}
+function renderProcessTabs(){ $('#processTabs').innerHTML=processes.map(p=>`<button role="tab" aria-selected="${activeProcess===p.id}" class="${activeProcess===p.id?'active':''}" data-process="${p.id}">${p.id}. ${p.short}</button>`).join('');$$('#processTabs button').forEach(b=>b.addEventListener('click',()=>{activeProcess=+b.dataset.process;renderProcess(activeProcess)}));}
+
+const flowConfig = {
+  1: [
+    {type:'start', label:'Início'},
+    {type:'phase', pi:0, summary:'Preparar o escopo e estimar as horas por integração'},
+    {type:'phase', pi:1, summary:'Confirmar o fechamento comercial e formalizar o recebimento'},
+    {type:'gateway', title:'O projeto foi fechado comercialmente?', yes:'Seguir para a estruturação do projeto.', no:'Aguardar a confirmação comercial antes de avançar.', detail:'O Gerente de Projetos recebe o projeto após a confirmação do fechamento.'},
+    {type:'phase', pi:2, summary:'Criar o projeto e os Work Items no PMO'},
+    {type:'segment', pi:3, from:18, to:20, summary:'Triar, planejar e verificar se a LI é necessária'},
+    {type:'gateway', title:'A LI é necessária?', yes:'Elaborar, obter a assinatura quando aplicável e anexar ao WI.', no:'Seguir sem LI e manter a documentação da demanda atualizada.', detail:'A elaboração e a assinatura da LI são condicionais, conforme a necessidade identificada.'},
+    {type:'segment', pi:3, from:21, to:24, summary:'Formalizar a LI, quando necessária, e atualizar a documentação'},
+    {type:'gateway', title:'Há atividade de Desenvolvimento ou documentação?', yes:'Encaminhar o WI para Desenvolvimento.', no:'Avançar diretamente para configuração e validação.'},
+    {type:'phase', pi:4, summary:'Executar e documentar as atividades de Desenvolvimento'},
+    {type:'segment', pi:5, from:29, to:31, summary:'Reavaliar a demanda, configurar e validar a integração'},
+    {type:'gateway', range:'Etapa 31 · fase 6', title:'A integração foi validada?', yes:'Seguir para apresentação ao cliente, termo e encerramento.', no:'Retornar aos ajustes de configuração e testar novamente.', detail:'O retorno em caso de falha é uma recomendação de modelagem a confirmar com os responsáveis.'},
+    {type:'segment', pi:5, from:32, to:37, summary:'Formalizar a entrega e atualizar o controle do projeto'},
+    {type:'end', label:'Fim · WI concluído'}
+  ],
+  2: [
+    {type:'start', label:'Início'},
+    {type:'phase', pi:0, summary:'Registrar a alteração de escopo e abrir o ticket'},
+    {type:'phase', pi:1, summary:'Analisar, estimar e preparar o orçamento'},
+    {type:'phase', pi:2, summary:'Avaliar a cobrança e obter a aprovação comercial'},
+    {type:'gateway', title:'O orçamento foi aprovado e a documentação foi anexada?', yes:'Prosseguir para a Ordem de Serviço e o PMO.', no:'Manter a demanda na etapa de aprovação comercial.', detail:'A assinatura e o retorno do ticket com a documentação da aprovação antecedem a OS.'},
+    {type:'phase', pi:3, summary:'Abrir a OS e estruturar os Work Items'},
+    {type:'segment', pi:4, from:24, to:26, summary:'Fazer a triagem, planejar e verificar se a CCI é necessária'},
+    {type:'gateway', title:'A formalização por CCI é necessária?', yes:'Elaborar, assinar e anexar a CCI ao WI.', no:'Seguir sem CCI, registrando a decisão conforme critério a validar.'},
+    {type:'segment', pi:4, from:27, to:30, summary:'Formalizar a alteração, quando necessário, e atualizar o WI'},
+    {type:'gateway', title:'Há atividade de Desenvolvimento ou documentação?', yes:'Encaminhar o WI para Desenvolvimento.', no:'Avançar diretamente para configuração e validação.'},
+    {type:'phase', pi:5, summary:'Executar e documentar as atividades aprovadas'},
+    {type:'segment', pi:6, from:35, to:37, summary:'Reavaliar, configurar e validar a integração'},
+    {type:'gateway', range:'Etapa 37 · fase 7', title:'A integração foi validada?', yes:'Prosseguir para entrega, termo e encerramento.', no:'Retornar aos ajustes técnicos e executar novo teste.', detail:'O caminho de retorno após falha de validação deve ser confirmado na versão oficial do procedimento.'},
+    {type:'segment', pi:6, from:38, to:43, summary:'Registrar o aceite, anexar o termo e encerrar a demanda'},
+    {type:'end', label:'Fim · demanda concluída'}
+  ],
+  3: [
+    {type:'start', label:'Início'},
+    {type:'phase', pi:0, summary:'Registrar a alteração e abrir o ticket como CCI sem orçamento'},
+    {type:'phase', pi:1, summary:'Validar a dispensa de orçamento e encaminhar a demanda'},
+    {type:'gateway', title:'A dispensa de orçamento foi confirmada?', yes:'Encaminhar o Change Request para Serviços Técnicos.', no:'Reavaliar o encaminhamento com Orçamentos; os critérios precisam ser confirmados.'},
+    {type:'segment', pi:2, from:9, to:11, summary:'Fazer a triagem, planejar e verificar se a CCI é necessária'},
+    {type:'gateway', title:'A formalização por CCI é necessária?', yes:'Elaborar, assinar e anexar a CCI ao WI.', no:'Seguir sem CCI, registrando a decisão conforme critério a validar.'},
+    {type:'segment', pi:2, from:12, to:15, summary:'Formalizar a alteração, quando necessário, e atualizar o WI'},
+    {type:'gateway', title:'Há atividade de Desenvolvimento ou documentação?', yes:'Encaminhar o WI para Desenvolvimento.', no:'Avançar diretamente para configuração e validação.'},
+    {type:'phase', pi:3, summary:'Executar e documentar as atividades aprovadas'},
+    {type:'segment', pi:4, from:20, to:22, summary:'Reavaliar, configurar e validar a integração'},
+    {type:'gateway', range:'Etapa 22 · fase 5', title:'A integração foi validada?', yes:'Prosseguir para entrega, termo e encerramento.', no:'Retornar aos ajustes técnicos e executar novo teste.', detail:'O caminho de retorno após falha de validação deve ser confirmado na versão oficial do procedimento.'},
+    {type:'segment', pi:4, from:23, to:28, summary:'Registrar o aceite, anexar o termo e encerrar a demanda'},
+    {type:'end', label:'Fim · demanda concluída'}
+  ],
+  4: [
+    {type:'start', label:'Início'},
+    {type:'phase', pi:0, summary:'Registrar a necessidade de nova integração e abrir o ticket'},
+    {type:'phase', pi:1, summary:'Analisar a necessidade, estimar e orçar'},
+    {type:'phase', pi:2, summary:'Avaliar a cobrança e obter a aprovação comercial'},
+    {type:'gateway', title:'O orçamento foi aprovado e a documentação foi anexada?', yes:'Prosseguir para a Ordem de Serviço e o PMO.', no:'Manter a demanda na etapa de aprovação comercial.', detail:'A assinatura e o retorno do ticket com a documentação da aprovação antecedem a OS.'},
+    {type:'phase', pi:3, summary:'Abrir a OS e criar o projeto e os Work Items'},
+    {type:'segment', pi:4, from:24, to:26, summary:'Fazer a triagem, planejar e verificar se a LI é necessária'},
+    {type:'gateway', title:'A LI é necessária?', yes:'Elaborar, obter a assinatura quando aplicável e anexar ao WI.', no:'Seguir sem LI e manter a documentação da demanda atualizada.'},
+    {type:'segment', pi:4, from:27, to:30, summary:'Formalizar a LI, quando necessária, e atualizar a documentação'},
+    {type:'gateway', title:'Há atividade de Desenvolvimento ou documentação?', yes:'Encaminhar o WI para Desenvolvimento.', no:'Avançar diretamente para configuração e validação.'},
+    {type:'phase', pi:5, summary:'Executar e documentar as atividades de Desenvolvimento'},
+    {type:'segment', pi:6, from:35, to:37, summary:'Reavaliar, configurar e validar a integração'},
+    {type:'gateway', range:'Etapa 37 · fase 7', title:'A integração foi validada?', yes:'Prosseguir para entrega, termo e encerramento.', no:'Retornar aos ajustes de configuração e testar novamente.', detail:'O retorno em caso de falha é uma recomendação de modelagem a confirmar com os responsáveis.'},
+    {type:'segment', pi:6, from:38, to:43, summary:'Registrar o aceite, anexar o termo e encerrar a demanda'},
+    {type:'end', label:'Fim · integração concluída'}
+  ],
+  5: [
+    {type:'start', label:'Início'},
+    {type:'phase', pi:0, summary:'Identificar o defeito, reunir evidências e abrir o Bug'},
+    {type:'segment', pi:1, from:4, to:6, summary:'Receber o Bug, analisar evidências e verificar se os dados são suficientes'},
+    {type:'gateway', range:'Etapa 6 · fase 2', title:'As informações e evidências são suficientes?', yes:'Prosseguir com a análise técnica.', no:'Solicitar complemento ao Consultor Técnico e retornar à análise.'},
+    {type:'segment', pi:1, from:7, to:9, summary:'Complementar informações quando necessário e encaminhar conforme a análise'},
+    {type:'gateway', range:'Etapa 9 · fase 2', title:'A correção exige atuação de Desenvolvimento?', yes:'Encaminhar o Bug para Desenvolvimento.', no:'Definir o tratamento alternativo pelo Suporte — regra a validar.', detail:'O procedimento atual não detalha o caminho de resolução quando o Suporte não precisa acionar Desenvolvimento.'},
+    {type:'phase', pi:2, summary:'Investigar a causa, corrigir e documentar o defeito'},
+    {type:'phase', pi:3, summary:'Preparar a versão/ambiente e executar os testes'},
+    {type:'gateway', range:'Etapa 19 · fase 5', title:'O problema foi resolvido?', yes:'Documentar as evidências e encerrar o Bug.', no:'Registrar os testes, devolver para Desenvolvimento e repetir o ciclo.'},
+    {type:'end', label:'Fim · Bug encerrado após validação'}
+  ]
+};
+const phaseActors = {
+  1:['Pré-Vendas · Orçamentos','Vendas · Gerente de Projetos · Orçamentos','PMO','Serviços Técnicos · Consultor Técnico · Cliente','Serviços Técnicos · Desenvolvimento','Consultor Técnico · Cliente · Gerente de Projetos'],
+  2:['Cliente · Consultor Técnico','Orçamentos · Desenvolvimento · Serviços Técnicos','Consultor Técnico · Gerente de Projetos · Cliente','Orçamentos · PMO','Serviços Técnicos · Consultor Técnico · Cliente','Serviços Técnicos · Desenvolvimento','Consultor Técnico · Cliente · Gerente de Projetos'],
+  3:['Cliente · Consultor Técnico','Orçamentos','Serviços Técnicos · Consultor Técnico · Cliente','Serviços Técnicos · Desenvolvimento','Consultor Técnico · Cliente · Gerente de Projetos'],
+  4:['Cliente · Suporte · Orçamentos','Orçamentos · Desenvolvimento · Serviços Técnicos','Consultor Técnico · Gerente de Projetos · Cliente','Orçamentos · PMO','Serviços Técnicos · Consultor Técnico · Cliente','Serviços Técnicos · Desenvolvimento','Consultor Técnico · Cliente · Gerente de Projetos'],
+  5:['Consultor Técnico','Suporte · Consultor Técnico','Desenvolvimento','Gerente de Projetos · Consultor Técnico','Consultor Técnico · Desenvolvimento']
+};
+function phaseRanges(p){let n=1;return p.phases.map((phase,i)=>{const start=n;const end=n+phase.steps.length-1;n=end+1;return {start,end,phase,i};});}
+const flowDecisions = {
+  1: {
+    9: {mode:'at',title:'O projeto foi fechado comercialmente?',yes:{label:'Sim — continuar com o recebimento do projeto.',target:10},no:{label:'Não — aguardar confirmação comercial.',target:9},detail:'O recebimento pelo Gerente de Projetos ocorre após a confirmação do fechamento.'},
+    20: {mode:'at',title:'A LI é necessária?',yes:{label:'Sim — elaborar e formalizar a LI.',target:21},no:{label:'Não — pular as etapas de LI e seguir para a etapa 25.',target:25},detail:'A elaboração e a assinatura da LI dependem da necessidade identificada.'},
+    25: {mode:'at',title:'Há atividades de Desenvolvimento ou documentação?',yes:{label:'Sim — executar as atividades de Desenvolvimento.',target:26},no:{label:'Não — seguir diretamente para configuração e validação.',target:29},detail:'A etapa original encaminha o WI para Desenvolvimento quando houver atividades a realizar.'},
+    31: {mode:'at',title:'O funcionamento da integração foi validado?',yes:{label:'Sim — seguir para apresentação e entrega.',target:32},no:{label:'Não — retornar aos ajustes e testar novamente.',target:30},detail:'O retorno para correção e reteste é uma recomendação de modelagem que deve ser validada com os responsáveis.'}
+  },
+  2: {
+    17: {mode:'after',title:'O orçamento foi aprovado e a documentação está anexada?',yes:{label:'Sim — abrir a OS e encaminhar ao PMO.',target:18},no:{label:'Não — manter a demanda no ciclo de aprovação comercial.',target:14},detail:'A assinatura e o retorno do ticket com a documentação da aprovação antecedem a Ordem de Serviço.'},
+    26: {mode:'at',title:'A alteração precisa ser formalizada por CCI?',yes:{label:'Sim — elaborar, assinar e anexar a CCI.',target:27},no:{label:'Não — seguir para a etapa de Desenvolvimento, se aplicável.',target:31},detail:'O critério de dispensa da CCI deve seguir a regra definida pela gestão.'},
+    31: {mode:'at',title:'Há atividades de Desenvolvimento ou documentação?',yes:{label:'Sim — executar e documentar as atividades.',target:32},no:{label:'Não — seguir diretamente para configuração e validação.',target:35},detail:'A passagem por Desenvolvimento é condicional ao tipo de atividade necessária.'},
+    37: {mode:'at',title:'O funcionamento da integração foi validado?',yes:{label:'Sim — prosseguir para apresentação e entrega.',target:38},no:{label:'Não — retornar aos ajustes e repetir o teste.',target:36},detail:'O caminho de retorno para correção/reteste deve ser confirmado na versão oficial do procedimento.'}
+  },
+  3: {
+    7: {mode:'at',title:'A dispensa de orçamento foi confirmada?',yes:{label:'Sim — encaminhar para Serviços Técnicos.',target:8},no:{label:'Não — reavaliar a indicação com Orçamentos.',target:6},detail:'Os critérios para aceitar a dispensa de orçamento precisam estar definidos pela gestão.'},
+    11: {mode:'at',title:'A alteração precisa ser formalizada por CCI?',yes:{label:'Sim — elaborar, assinar e anexar a CCI.',target:12},no:{label:'Não — seguir para a etapa de Desenvolvimento, se aplicável.',target:16},detail:'Se não houver necessidade de CCI, as atividades de formalização podem ser puladas conforme o critério a validar.'},
+    16: {mode:'at',title:'Há atividades de Desenvolvimento ou documentação?',yes:{label:'Sim — executar e documentar as atividades.',target:17},no:{label:'Não — seguir diretamente para configuração e validação.',target:20},detail:'O encaminhamento para Desenvolvimento depende do tipo de atividade necessária.'},
+    22: {mode:'at',title:'O funcionamento da integração foi validado?',yes:{label:'Sim — prosseguir para apresentação e entrega.',target:23},no:{label:'Não — retornar aos ajustes e repetir o teste.',target:21},detail:'O caminho de retorno para correção/reteste deve ser confirmado com os responsáveis.'}
+  },
+  4: {
+    17: {mode:'after',title:'O orçamento foi aprovado e a documentação está anexada?',yes:{label:'Sim — abrir a OS e encaminhar ao PMO.',target:18},no:{label:'Não — manter a demanda no ciclo de aprovação comercial.',target:14},detail:'A assinatura e a documentação de aprovação antecedem a Ordem de Serviço.'},
+    26: {mode:'at',title:'A LI é necessária?',yes:{label:'Sim — elaborar e formalizar a LI.',target:27},no:{label:'Não — seguir para a etapa de Desenvolvimento, se aplicável.',target:31},detail:'A necessidade de LI é verificada pelo Consultor Técnico; a formalização ocorre quando necessária.'},
+    31: {mode:'at',title:'Há atividades de Desenvolvimento ou documentação?',yes:{label:'Sim — executar e documentar as atividades.',target:32},no:{label:'Não — seguir diretamente para configuração e validação.',target:35},detail:'A passagem por Desenvolvimento depende das atividades planejadas.'},
+    37: {mode:'at',title:'O funcionamento da integração foi validado?',yes:{label:'Sim — prosseguir para apresentação e entrega.',target:38},no:{label:'Não — retornar aos ajustes e repetir o teste.',target:36},detail:'O retorno para correção/reteste é uma recomendação a validar com os responsáveis.'}
+  },
+  5: {
+    6: {mode:'at',title:'As informações e evidências são suficientes?',yes:{label:'Sim — seguir para o encaminhamento conforme a análise.',target:9},no:{label:'Não — solicitar complemento ao Consultor Técnico.',target:7},detail:'A verificação de suficiência é descrita na análise do Suporte.'},
+    9: {mode:'at',title:'A correção exige atuação de Desenvolvimento?',yes:{label:'Sim — encaminhar o Bug para Desenvolvimento.',target:10},no:{label:'O tratamento alternativo pelo Suporte precisa ser definido.',target:null},detail:'O procedimento de origem não detalha o fluxo alternativo quando Desenvolvimento não precisa atuar.'},
+    19: {mode:'at',title:'O problema foi resolvido?',yes:{label:'Sim — documentar as evidências e encerrar o Bug.',target:21},no:{label:'Não — registrar o resultado e retornar para correção.',target:20},detail:'O Bug só deve ser encerrado após a confirmação da resolução e o registro das evidências aplicáveis.'}
+  }
+};
+const flowReturns = {
+  5: {
+    8:{label:'Após receber o complemento, o Suporte reavalia se as informações são suficientes.',target:6},
+    20:{label:'Após registrar a falha nos testes, o Bug retorna ao Desenvolvimento para nova análise e correção.',target:10}
+  }
+};
+const flowActors = ['Gerente de Projetos e/ou Consultor Técnico','Consultor Técnico ou cliente','Serviços Técnicos','Gerente de Projetos','Pré-Vendas','Consultor Técnico','Desenvolvimento','Orçamentos','Vendas','Suporte','Cliente','PMO'];
+function escapeFlowText(value){return String(value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function splitFlowTask(raw){
+ let text=String(raw), condition='';
+ const cm=text.match(/^Se\s+(NÃO|SIM):\s*/i);
+ if(cm){condition=cm[1].toUpperCase();text=text.slice(cm[0].length);}
+ const actor=flowActors.find(r=>text.startsWith(r));
+ if(actor){return {actor,action:text.slice(actor.length).replace(/^\s*[:—-]?\s*/,''),condition};}
+ return {actor:'Atividade',action:text,condition};
+}
+function renderFlowTask(p, n, raw, phaseName){
+ const a=splitFlowTask(raw);
+ const condition=a.condition?`<span class="flow-task-condition">CAMINHO ${a.condition}</span>`:'';
+ return `<article class="flow-task-node" id="flowstep-${p.id}-${n}" data-flow-step="${n}"><span class="flow-task-number">${String(n).padStart(2,'0')}</span><div class="flow-task-copy"><div class="flow-task-meta"><span class="flow-task-kicker">Etapa ${n}</span><span class="flow-task-role">${escapeFlowText(a.actor)}</span>${condition}</div><div class="flow-task-description">${escapeFlowText(a.action || raw)}</div></div></article>`;
+}
+function renderFlowGateway(p, n, cfg, context=''){
+ const targetMarkup=(route,kind)=>{
+  const title=route.target==null?'':`<span class="branch-route">${'Ir para a etapa '+route.target}</span>`;
+  const body=`<b>${kind==='yes'?'SIM':'NÃO / ALTERNATIVA'}</b>${escapeFlowText(route.label)}${title}`;
+  return route.target==null?`<div class="branch ${kind==='yes'?'branch-yes':'branch-no'}">${body}</div>`:`<button class="branch ${kind==='yes'?'branch-yes':'branch-no'}" type="button" data-jump-flow-step="${route.target}">${body}</button>`;
+ };
+ const num = n==null ? '' : `<span class="flow-gateway-step-no">${String(n).padStart(2,'0')}</span>`;
+ const ctx = context?`<div class="flow-gateway-context">Etapa de origem: ${escapeFlowText(context)}</div>`:'';
+ return `<section class="flow-gateway" ${n!=null?`id="flowstep-${p.id}-${n}" data-flow-step="${n}"`:''}><div class="flow-gateway-left">${num}<div class="gateway-diamond"><span>×</span></div></div><div class="gateway-copy"><div class="gateway-kicker">${n!=null?`Etapa ${n} · `:''}Ponto de decisão</div><div class="gateway-title">${escapeFlowText(cfg.title)}</div>${ctx}<div class="gateway-branches">${targetMarkup(cfg.yes,'yes')}${targetMarkup(cfg.no,'no')}</div>${cfg.detail?`<div class="flow-gateway-detail">${escapeFlowText(cfg.detail)}</div>`:''}</div></section>`;
+}
+function renderFlowReturn(p,n,cfg){
+ return `<div class="flow-return-note"><div><strong>Retorno do fluxo · após etapa ${n}</strong>${escapeFlowText(cfg.label)}</div><button type="button" data-jump-flow-step="${cfg.target}">Voltar à etapa ${cfg.target} ↗</button></div>`;
+}
+function renderFlowchart(p){
+ const ranges=phaseRanges(p), actors=phaseActors[p.id]||[], decisions=flowDecisions[p.id]||{}, returns=flowReturns[p.id]||{};
+ const groups=ranges.map((r,pi)=>{
+   let n=r.start; const stepItems=[];
+   for(const raw of r.phase.steps){
+     const current=n++;
+     const decision=decisions[current];
+     if(decision && decision.mode==='at') stepItems.push(renderFlowGateway(p,current,decision,raw));
+     else {
+       stepItems.push(renderFlowTask(p,current,raw,r.phase.name));
+       if(decision && decision.mode==='after') stepItems.push(renderFlowGateway(p,null,decision,''));
+     }
+     if(returns[current]) stepItems.push(renderFlowReturn(p,current,returns[current]));
+     if(current<r.end) stepItems.push('<div class="flow-step-arrow" aria-hidden="true"><span>↓</span></div>');
+   }
+   const actorText=actors[pi]||'Responsáveis identificados nas etapas abaixo';
+   return `<details class="flow-phase-accordion" id="flow-phase-${p.id}-${pi}" data-flow-start="${r.start}" data-flow-end="${r.end}" ${pi===0?'open':''}><summary class="flow-phase-summary"><span class="flow-phase-num">${String(pi+1).padStart(2,'0')}</span><span class="flow-phase-copy"><span class="flow-phase-kicker">Fase ${pi+1} · ${rangeLabel(r.start,r.end)}</span><span class="flow-phase-title">${escapeFlowText(r.phase.name)}</span><span class="flow-phase-sub">${escapeFlowText(actorText)}</span></span><span class="flow-phase-open-label">Expandir etapas ↓</span></summary><div class="flow-step-flow">${stepItems.join('')}</div></details>`;
+ }).join('<div class="flow-phase-connector" aria-hidden="true"><span>↓</span></div>');
+ const endLabel=p.id===5?'Fim · Bug encerrado após validação positiva':'Fim · processo concluído';
+ return `<section class="diagram-panel" aria-labelledby="flow-title-${p.id}"><div class="diagram-head"><div><h3 id="flow-title-${p.id}">Fluxograma detalhado do processo</h3><p>Cada atividade do procedimento aparece como uma etapa numerada no fluxo. Expanda as fases para ver as atividades conectadas; os gateways amarelos mostram decisões e caminhos de retorno.</p></div><button class="btn" type="button" onclick="printFlowchart()">Imprimir fluxograma</button></div><div class="flow-legend"><span class="legend-symbol"><i class="legend-circle"></i> Início / fim</span><span class="legend-symbol"><i class="legend-task"></i> Atividade numerada</span><span class="legend-symbol"><i class="legend-gateway"></i> Decisão / condição</span><span class="legend-symbol">↓ Sequência principal</span></div><div class="flow-chart-toolbar"><p><strong>${totalSteps(p)} etapas numeradas</strong> · os passos mantêm a sequência original; decisões adicionais não alteram a numeração.</p><div class="flow-chart-actions"><button class="btn" type="button" id="expandFlowPhases">Expandir fluxo completo</button><button class="btn" type="button" id="collapseFlowPhases">Recolher fases</button></div></div><div class="flowchart"><div class="flow-start flow-chart-start"><span class="event-dot"></span>Início</div><div class="flow-phase-connector" aria-hidden="true"><span>↓</span></div>${groups}<div class="flow-phase-connector" aria-hidden="true"><span>↓</span></div><div class="flow-end"><span class="event-dot end"></span>${endLabel}</div></div><div class="flow-chart-caption"><strong>Como navegar:</strong> use “Expandir fluxo completo” para exibir todas as atividades no diagrama. Nos gateways, selecione um dos caminhos para ir diretamente à etapa de destino. Retornos ou alternativas que dependem de validação gerencial estão identificados no próprio fluxo.</div></section>`;
+}
+function jumpToFlowStep(stepNumber){
+ const p=processes.find(x=>x.id===activeProcess); if(!p)return;
+ const r=phaseRanges(p).find(x=>stepNumber>=x.start&&stepNumber<=x.end); if(!r)return;
+ const group=document.getElementById(`flow-phase-${activeProcess}-${r.i}`); if(group)group.open=true;
+ setTimeout(()=>{
+  const node=document.getElementById(`flowstep-${activeProcess}-${stepNumber}`);
+  if(node){document.querySelectorAll('.flow-task-node.is-highlighted,.flow-gateway.is-highlighted').forEach(x=>x.classList.remove('is-highlighted'));node.classList.add('is-highlighted');node.scrollIntoView({behavior:'smooth',block:'center'});}
+ },80);
+}
+function jumpToPhase(pi){
+ const search=$('#stepSearch'); if(search&&search.value){search.value='';renderProcess(activeProcess,'');}
+ const el=$(`#phase-${activeProcess}-${pi}`); if(el){el.open=true;el.scrollIntoView({behavior:'smooth',block:'center'});el.querySelector('summary')?.focus({preventScroll:true});}
+}
+
+function renderProcess(id, searchText=''){
+ const p=processes.find(x=>x.id===id); if(!p)return;
+ renderProcessTabs(); let step=1; let shown=0; const q=searchText.trim().toLocaleLowerCase('pt-BR');
+ const phasesHtml=p.phases.map((phase,pi)=>{
+   let start=step;
+   const phaseStart=step;
+   const allSteps=phase.steps.map((s,si)=>{const n=step++;const ok=!q||s.toLocaleLowerCase('pt-BR').includes(q)||phase.name.toLocaleLowerCase('pt-BR').includes(q);if(ok)shown++;return {n,s,ok};});
+   const end=step-1; const stepsHtml=allSteps.filter(x=>x.ok).map(x=>`<div class="step"><span class="step-num">${x.n}</span><p>${x.s}</p></div>`).join('');
+   if(q&&!stepsHtml)return '';
+   const openAttr=q?' open':'';
+   return `<details class="phase" id="phase-${p.id}-${pi}"${openAttr}><summary><span class="phase-no">${String(pi+1).padStart(2,'0')}</span><span class="phase-name">${phase.name}</span><span class="phase-range">${rangeLabel(start,end)}</span><span class="chevron">⌄</span></summary><div class="phase-body">${stepsHtml}</div></details>`;
+ }).join('');
+ const notes=p.notes.map(n=>`<div class="note"><b>${n.title}</b>${n.text}</div>`).join('');
+ const ticketCallout = p.id===1
+   ? `<div class="ticket-note"><strong>Documentos e controles principais</strong>SAI com estimativa discriminada por integração; Ordem de Serviço; WI por integração; LI quando necessária; Termo de Entrega da Demanda.</div>`
+   : p.id===2
+   ? `<div class="ticket-note"><strong>Requisitos de entrada</strong>Identificar a demanda como CCI, indicar que necessita de orçamento, descrever a alteração e preencher Categoria “Customização e Integração” e Subcategoria “Customização de Integração”.</div>`
+   : p.id===3
+   ? `<div class="ticket-note"><strong>Requisitos de entrada</strong>Identificar a demanda como CCI, indicar expressamente a dispensa de orçamento, descrever a alteração e preencher Categoria/Subcategoria conforme o padrão.</div>`
+   : p.id===4
+   ? `<div class="ticket-note"><strong>Requisitos de entrada</strong>Descrever a integração solicitada, registrar seu objetivo e preencher Categoria “Customização e Integração” e Subcategoria “Customização de Integração”.</div>`
+   : `<div class="ticket-note"><strong>Requisitos de entrada do Bug</strong>Descrição completa do problema, evidências, artefato utilizado, passos para reproduzir quando possível e comparação entre resultado esperado e obtido quando aplicável.</div>`;
+ $('#processDetail').innerHTML=`<div class="process-title"><div><div class="eyebrow" style="color:var(--blue)">PROCESSO ${String(p.id).padStart(2,'0')} · ${p.tag.toUpperCase()}</div><h2>${p.name}</h2><p>${p.goal}</p><div class="portal-intro"><span><strong>Como usar:</strong> siga o fluxograma e selecione uma fase para abrir a lista de atividades.</span><span>Numeração local: começa em 1 neste processo.</span></div></div><div class="process-count"><b>${totalSteps(p)}</b><span>etapas numeradas</span></div></div>${renderFlowchart(p)}${ticketCallout}<div class="phase-toolbar"><div><h3>Etapas detalhadas</h3><p>${q?`${shown} atividade(s) correspondem à busca.`:'As fases estão recolhidas para facilitar a navegação. Expanda uma fase ou todas.'}</p></div><div class="phase-toolbar-actions"><button class="btn" type="button" id="expandPhases">Expandir todas</button><button class="btn" type="button" id="collapsePhases">Recolher todas</button></div></div>${q&&shown===0?'<div class="panel empty">Nenhuma atividade encontrada. Tente outra palavra.</div>':`<div class="phase-grid">${phasesHtml}</div>`}${notes}`;
+ $('#processInstruction').textContent=q?`${shown} atividade(s) correspondem à busca.`:'Use o fluxograma para entender a sequência e abra as fases para ver os detalhes.';
+ $('#expandFlowPhases')?.addEventListener('click',()=>$$(`#processDetail .flow-phase-accordion`).forEach(el=>el.open=true));
+ $('#collapseFlowPhases')?.addEventListener('click',()=>$$(`#processDetail .flow-phase-accordion`).forEach(el=>el.open=false));
+ $$('[data-jump-flow-step]').forEach(el=>el.addEventListener('click',()=>jumpToFlowStep(+el.dataset.jumpFlowStep)));
+ $('#expandPhases')?.addEventListener('click',()=>$$(`#processDetail .phase`).forEach(el=>el.open=true));
+ $('#collapsePhases')?.addEventListener('click',()=>$$(`#processDetail .phase`).forEach(el=>el.open=false));
+ $$('[data-jump-phase]').forEach(el=>el.addEventListener('click',()=>jumpToPhase(+el.dataset.jumpPhase)));
+}
+$('#stepSearch').addEventListener('input',e=>renderProcess(activeProcess,e.target.value));
+const processColumns=[1,2,3,4,5];
+const mapRows=[
+ ['Estimativa / orçamento',{1:'1–8 · SAI',2:'5–11',3:'—',4:'6–11',5:'—'}],
+ ['Aprovação comercial',{1:'9–14 · projeto',2:'12–17',3:'—',4:'12–17',5:'—'}],
+ ['Estruturação PMO / OS',{1:'15–17',2:'18–23',3:'—',4:'18–23',5:'—'}],
+ ['Formalização por CCI',{1:'—',2:'24–30',3:'9–15',4:'—',5:'—'}],
+ ['Formalização por LI',{1:'18–24',2:'—',3:'—',4:'24–30',5:'—'}],
+ ['Execução por Desenvolvimento',{1:'25–28',2:'31–34',3:'16–19',4:'31–34',5:'10–14 · correção'}],
+ ['Configuração / validação / encerramento',{1:'29–37',2:'35–43',3:'20–28',4:'35–43',5:'15–21 · testes e validação'}]
+];
+$('#compareTableBody').innerHTML=mapRows.map(row=>`<tr><td>${row[0]}</td>${processColumns.map(id=>{let v=row[1][id];return `<td>${v==='—'?'<span class="na">Não se aplica</span>':`<span class="range">${v}</span>`}</td>`}).join('')}</tr>`).join('');
+$('#blockCards').innerHTML=commonBlocks.map((b,i)=>`<article class="block-card"><div class="num">BLOCO ${String(i+1).padStart(2,'0')}</div><h3>${b.name}</h3><p>${b.desc}</p><div class="ranges">${b.ranges.map(([id,r])=>`<span class="range">P${id}: ${r}</span>`).join('')}</div><details><summary>Ver sequência sugerida</summary><ol>${b.seq.map(s=>`<li>${s}</li>`).join('')}</ol></details></article>`).join('');
+$('#governanceCards').innerHTML=governance.map(([h,p],i)=>`<article class="gov-card"><h3>${String(i+1).padStart(2,'0')} · ${h}</h3><p>${p}</p></article>`).join('');
+
+function printFlowchart(){
+ const groups=$$(`#processDetail .flow-phase-accordion`); const previous=groups.map(el=>el.open);
+ groups.forEach(el=>el.open=true);
+ document.body.classList.add('print-chart-only');
+ window.addEventListener('afterprint',()=>{document.body.classList.remove('print-chart-only');groups.forEach((el,i)=>el.open=previous[i]);},{once:true});
+ window.print();
+}
+
+$('#printBtn').addEventListener('click',()=>{
+ setView('processes');renderProcess(activeProcess);
+ setTimeout(()=>{
+  const groups=$$(`#processDetail .flow-phase-accordion`); const previous=groups.map(el=>el.open);
+  groups.forEach(el=>el.open=true);
+  window.addEventListener('afterprint',()=>groups.forEach((el,i)=>el.open=previous[i]),{once:true});
+  window.print();
+ },120);
+});
+$('#presentBtn').addEventListener('click',async()=>{try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();else await document.exitFullscreen()}catch(e){document.body.classList.toggle('presentation-mode');}});
+renderProcessTabs();renderProcess(1);
+</script>
+</body></html>
